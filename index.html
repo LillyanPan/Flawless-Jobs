@@ -45,7 +45,7 @@
 			<div id="quiz col-md-6">
 				<div class="qs-text text-right"></div>
 			</div>
-			<div class="col-md-6 qs-text">
+			<div class="col-md-6 qz-text">
 				What company should you work for? Have fun finding your perfect company!
 			</div>
 		</div>
@@ -53,7 +53,12 @@
 			var cities, questions;
 			var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 			var vars = ["weather", "career", "women", "maternity", "size", "industry"];
-			var fontScale = d3.scale.linear().domain([.1, 1]).range([12, 25]);
+			// var fontScale = d3.scale.linear().domain([.1, 1]).range([12, 25]);
+			var minFont = 5;
+			var maxFont = 25;
+			var companies = [];
+			var cities = {};
+
 
 			var resetQuiz = function() {
 				var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
@@ -89,6 +94,7 @@
 				var cityKey = city["elems"]["label"].attr("id");
 			}
 
+			/* Update Map based on Question Answer */ 
 			var updateMap = function (weights) {
 				var companyScore = function(x) {
 					return["value"]["score"];
@@ -96,9 +102,34 @@
 				var minScore = d3.min(d3.entries(cityScoresJson), companyScore);
 				var maxScore = d3.max(d3.entries(cityScoresJson), companyScore);
 
-				var size_scale = d3.scale.linear().domain([min_score, max_score]).range([min_font,max_font]);
-    			var opac_scale = d3.scale.linear().domain([min_score, max_score]).range([0.2,1.0]);
+				var sizeScale = d3.scale.linear().domain([minScore, maxScore]).range([minFont,maxFont]);
+    			var opacScale = d3.scale.linear().domain([minScore, maxScore]).range([0.2,1.0]);
+
+    			for (var c in companies) { // c = 0, 1, ...
+					var city = companies[c];
+					var size = sizeScale(city["score"]);
+					var opacity = opacScale(city["score"]);
+
+					var label = city['elems']["label"];
+					var circle = city["elems"]["circle"];
+
+					label
+					.transition(400)
+					.style("font-size", size+"px")
+					.style("opacity", opacity);
+
+					circle
+					.transition(400)
+					.style("opacity", opacity);
+
 			}
+
+			/* Changing the Question */
+			var changeQuestion = function(num) {
+				updateMap(weights);
+				var qQuestion = d3.select(".qz-text");
+				var question = 
+			} 
 
 
 			var width = 960, height = 550;
@@ -127,8 +158,6 @@
 			/*********************
 				QUIZ PROCESSING
 			*********************/
-			var companies = [];
-			var cities = {};
 			d3.csv("companies.csv", function(error, data) {
 				data.forEach(function (line) {
 					company = {};

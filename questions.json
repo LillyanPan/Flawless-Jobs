@@ -1,0 +1,69 @@
+[
+	{
+		"question": "where do you want to live?",
+		"choices": [
+			"west coast",
+			"east coast",
+			"midwest",
+			"i don't care"
+		],
+		"values": [
+			4,
+			3,
+			2,
+			1
+		]
+	}
+	{
+		"question": "how big is your dream company?",
+		"choices": [
+			"large",
+			"small"
+		],
+		"values": [
+			4,
+			2
+		]
+	}
+	{
+		"question": "what kind of industry?",
+		"choices": [
+			"consumer",
+			"hardware",
+			"software",
+			"b2b"
+		],
+		"values": [
+			4,
+			3,
+			2,
+			1
+		]
+	}
+	{
+		"question": "how important is a company with maternity leave policy?",
+		"choices": [
+			"very important",
+			"somewhat important",
+			"i don't care"
+		],
+		"values": [
+			3,
+			2,
+			1
+		]
+	}
+	{
+		"question": "how important is it to be surrounded by other female engineers at work?",
+		"choices": [
+			"extremely important",
+			"pretty important",
+			"i can work with anyone"
+		],
+		"values": [
+			3,
+			2,
+			1
+		]
+	}
+]

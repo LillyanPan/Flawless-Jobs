@@ -1,0 +1,16 @@
+name,industry,ml_weeks,num_female_eng,num_eng,percent_female_eng,percent_female_leadership,location,company_size
+Airbnb,Technology: Consumer Internet,16,38,281,13.52,,"San Francisco, CA",5000
+Apple,Technology: Manufacturing,18,"17,165","59,869",29,18,"Cupertino, CA",115000
+AthenaHealth,Technology: B2B Tech Services,12,75,473,15.86,,"Watertown, MA",4668
+Dropbox,Technology: Consumer Internet,16,42,384,10.94,,"San Francisco, CA",5000
+Etsy,Technology: Consumer Internet,12,19,149,12.75,37,"Brooklyn, NY",1000
+Facebook,Technology: Consumer Internet,16,1579,5479,28.82,23,"Menlo Park, CA",12691
+Google,Technology: Consumer Internet,18,9038,35527,18,16,"Menlo Park, CA",61814
+Intel,Technology: Manufacturing,8,"12,777","53,732",24,17,"Santa Clara, CA",106700
+Linkedin,Technology: Consumer Internet,16,,,18,25,"Mountain View, CA",9200
+Microsoft,Technology: Software,20,14819,60961,24,13,"Redmond, WA",118584
+Netflix,Technology: Consumer Internet,52,,,20,38.4,"Los Gatos, CA",3500
+Pinterest,Technology: Consumer Internet,18,60,307,19.54,16,"San Francisco, CA",500
+PWC,Consulting Services,11,,,,,"New York City, NY",208109
+Twitter,Technology: Consumer Internet,20,820,"2,910",24,22,"San Francisco, CA",3638
+Yelp,Technology: Consumer Internet,6,17,206,8.25,,"San Francisco, CA",3850

@@ -12,8 +12,6 @@
 
 	<!-- STYLESHEETS -->
 	<link rel="stylesheet" href="css/style.css" />
-	<link rel="stylesheet" href="css/bootstrap.min" />
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -24,7 +22,6 @@
 	<!-- SCRIPTS -->
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -41,11 +38,51 @@
 		</div>
 	</div>
 	<div id="content">
+		<div class="row">
+			<div class="col-md-6">
+				<div id="map"></div>
+			</div>
+			<div id="quiz col-md-6">
+				<div class="qs-text text-right"></div>
+			</div>
+			<div class="col-md-6 qs-text">
+				What company should you work for? Have fun finding your perfect company!
+			</div>
+		</div>
 		<script>
+			var width = 960, height = 550;
+			var projection = d3.geo.albersUsa();
+			var path = d3.geo.path().projection(projection);
+			var mapsvg = d3.select("#map").append("svg")
+				.attr("width", width)
+				.attr("height", height)
+			var states, cities;
+			var digitScale = d3.scale.category10();
+
+			/*********************
+					MAP
+			*********************/
+			d3.json("us.json", function(error,shapes) {
+				states = topojson.feature(shapes, shapes.objects.states).features;
+
+				var statePaths = mapsvg.append("g");
+				statePaths.selectAll("path").data(states).enter()
+				.append("path").attr("d",path)
+				.style("fill", "none").style("stroke", "#ccc");
+			});
+			mapsvg.style("transform", "scale(.7)");
+
 		</script>
 	</div>
 	</div>
-	<footer>Inspiration from <a href="http://kenlimmj.github.io/cs3300/project2/america_city/">here</a>.</footer>
+	<br><br><br>
+	<div id="footer">
+		<div class="container">
+			<p class="muted credit">
+				Inspiration from <a href="http://kenlimmj.github.io/cs3300/project2/america_city/">here</a>.
+			</p>
+		</div>
+	</div>
 	</div>
 </body>
 </html>

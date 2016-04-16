@@ -50,6 +50,57 @@
 			</div>
 		</div>
 		<script>
+			var cities, questions;
+			var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+			var vars = ["weather", "career", "women", "maternity", "size", "industry"];
+			var fontScale = d3.scale.linear().domain([.1, 1]).range([12, 25]);
+
+			var resetQuiz = function() {
+				var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+				updateMap(weights);
+				changeQs(0);
+
+				// Init labels and city points to black
+				d3.selectAll(".cityLabel, .cityPoint").attr("fill", "black");
+			}
+
+			/* Return results in sorted order */
+			var finalResults = function() {
+				// returns json string [{key: "k1", value:"v1"}]
+				var results = d3.entries(cities);
+
+				// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+				var compareNumbers = function(a,b) {
+					var score1 = a["value"]["score"];
+					var score2 = b["value"]["score"];
+					return score2-score1;
+				};
+
+				return results.sort(compareNumbers);
+			}
+
+			/* Reset Map */
+			var end = function() {
+				var results = finalResults();
+				updateMap(weights);
+
+				var job = results[0]["value"];
+				var altJobs = [results[1]["value"], results[2]["value"], results[3]["value"]];
+				var cityKey = city["elems"]["label"].attr("id");
+			}
+
+			var updateMap = function (weights) {
+				var companyScore = function(x) {
+					return["value"]["score"];
+				};
+				var minScore = d3.min(d3.entries(cityScoresJson), companyScore);
+				var maxScore = d3.max(d3.entries(cityScoresJson), companyScore);
+
+				var size_scale = d3.scale.linear().domain([min_score, max_score]).range([min_font,max_font]);
+    			var opac_scale = d3.scale.linear().domain([min_score, max_score]).range([0.2,1.0]);
+			}
+
+
 			var width = 960, height = 550;
 			var projection = d3.geo.albersUsa();
 			var path = d3.geo.path().projection(projection);
@@ -68,9 +119,61 @@
 				var statePaths = mapsvg.append("g");
 				statePaths.selectAll("path").data(states).enter()
 				.append("path").attr("d",path)
-				.style("fill", "none").style("stroke", "#ccc");
+				.style("fill", "none")
+				.style("stroke", "#ccc");
 			});
 			mapsvg.style("transform", "scale(.7)");
+
+			/*********************
+				QUIZ PROCESSING
+			*********************/
+			var companies = [];
+			var cities = {};
+			d3.csv("companies.csv", function(error, data) {
+				data.forEach(function (line) {
+					company = {};
+					company["name"] = line.name;
+					company["industry"] = line.industry;
+					company["maternity"] = line.m_weeks;
+					company["pFemales"] = line.percent_female_eng;
+					company["longitude"] = line.long;
+					company["latitude"] = line.lat;
+					company["size"] = line.size;
+					company["city"] = line.location;
+					// console.log(company);
+					companies.push(company);
+					// console.log(companies)
+				});
+				for (var c in companies) { // c = 0, 1, ...
+					var city = companies[c];
+					var coord = projection([city["longitude"], city["latitude"]]);
+					city["elems"] = {};
+					city["score"] = 0.0;
+
+					city['elems']["label"] = mapsvg.append("text")
+						.attr("x", coord[0])
+						.attr("y", coord[1] - 5)
+						.attr("class", "cityLabel")
+						.attr("text-anchor", "middle")
+        	    		.style("font-size", "8px")
+        	    		.text(city["name"]);
+					city["elems"]["circle"] = mapsvg.append("circle")
+						.attr("cx", coord[0])
+						.attr("cy", coord[1])
+						.attr("r", 2)
+						.attr("class", "cityPoint");
+     	// 			city['elems']["label"] = mapsvg.append("svg:image")
+						// .attr("x", coord[0])
+						// .attr("y", coord[1] - 5)
+						// .attr("class", "city_img")
+						// .attr("width", sqr)
+						// .attr("width", sqr)
+      //   	    		.attr("xlink:href","assets/"+ city["name"] +".png")
+					 
+				}
+			})
+//cities = {city_key: {elems: {circle: svg c1, label: city label}, score: 0}}
+
 
 		</script>
 	</div>

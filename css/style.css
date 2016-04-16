@@ -1,0 +1,22 @@
+/*********************
+		GENERAL
+*********************/
+body {
+	font-family: 'PT Sans Narrow';
+	padding: 30px;
+}
+svg {
+	padding-bottom: 50px;
+	padding-top: 30px;
+}
+
+/*********************
+		TEXT
+*********************/
+.jumbotron h1 {
+	font-family: 'PT Sans Narrow';
+}
+
+/*********************
+		GRAPHS
+*********************/

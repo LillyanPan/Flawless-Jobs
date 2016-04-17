@@ -15,6 +15,10 @@ svg {
 *********************/
 .jumbotron h1 {
 	font-family: 'PT Sans Narrow';
+	text-align: center;
+}
+.qz-text {
+	font-family: 'PT Sans Narrow';
 }
 
 /*********************
@@ -36,8 +40,42 @@ svg {
 
 #question label.choice:hover {
 	background: #d3d3d3;
+	font-family: 'PT Sans Narrow';
 }
 
-#question .choice input {
+input {
 	display: none;
+}
+span {
+	display: block;
+	padding: 20px;
+}
+span:hover {
+	background: #ededed;
+	border-radius: 25px;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#done span text {
+	font-size: 25px;
+}
+
+#question.choice {
+	display: block;
+}
+
+text:hover { 
+	fill: #7e7e7e;
+	border: 1px solid black;
+	opacity: 1.0; 
+	font-weight: bold; 
+	font-size: 60px; 
+	z-index: 10000;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }

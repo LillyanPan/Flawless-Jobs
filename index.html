@@ -32,7 +32,7 @@
 <div id="wrapper">
 	<div id="header">
 		<div class="container">
-			<div class="jumbotron">
+			<div class="jumbotron text-center">
 				<h1>What Company Should You Work For?</h1>
 			</div>
 		</div>
@@ -54,13 +54,14 @@
 			var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 			var categories = ["location", "size", "industry", "maternity", "women"];
 			// var fontScale = d3.scale.linear().domain([.1, 1]).range([12, 25]);
-			var minFont = 5;
-			var maxFont = 25;
+			var minFont = 8;
+			var maxFont = 30;
 			var companiesMap = [];
 			var cities = {};
 			var num = 0;
 			var maxScore, minScore;
 			var maxCompany;
+			var colorScale = d3.scale.linear().domain([-3, 0, 2]).range(["#ff1919", "#d3d3d3", "#198c19"]);
 
 
 			var resetQuiz = function() {
@@ -104,6 +105,10 @@
 				res.append("div")
 					.attr("id", "question")
 				res.append("span").html(maxCompany);
+				var empty = d3.select(".qz-text").html("");
+				empty.append("div")
+					.attr("id", "done")
+				empty.append("span").html("See above for your flawless job!");
 
 
 				// var job = companies[0]["value"];
@@ -138,6 +143,9 @@
 					label
 					.transition(400)
 					.style("font-size", size+"px")
+					.attr("fill", function() {
+						return colorScale(cityAug["score"]);
+					})
 					.style("opacity", opacity);
 
 					circle
@@ -251,6 +259,7 @@ console.log(questions.length-1);
 						.attr("class", "cityLabel")
 						.attr("text-anchor", "middle")
         	    		.style("font-size", "8px")
+        	    		.attr("font-family", "PT Sans Narrow")
         	    		.text(city["name"]);
 					city["elems"]["circle"] = mapsvg.append("circle")
 						.attr("cx", coord[0])

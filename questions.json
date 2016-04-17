@@ -1,11 +1,12 @@
 [
 	{
-		"question": "where do you want to live?",
+		"question": "Where do you want to live?",
+		"variable": "weather",
 		"choices": [
-			"west coast",
-			"east coast",
-			"midwest",
-			"i don't care"
+			"West Coast",
+			"East Coast",
+			"Midwest",
+			"I Don't Care"
 		],
 		"values": [
 			4,
@@ -13,25 +14,27 @@
 			2,
 			1
 		]
-	}
+	},
 	{
-		"question": "how big is your dream company?",
+		"question": "How big is your dream company?",
+		"variable": "size",
 		"choices": [
-			"large",
-			"small"
+			"Large",
+			"Small"
 		],
 		"values": [
 			4,
 			2
 		]
-	}
+	},
 	{
-		"question": "what kind of industry?",
+		"question": "What kind of industry are you interested in?",
+		"variable": "industry",
 		"choices": [
-			"consumer",
-			"hardware",
-			"software",
-			"b2b"
+			"Consumer",
+			"Hardware",
+			"Software",
+			"Business-to-Business"
 		],
 		"values": [
 			4,
@@ -39,26 +42,28 @@
 			2,
 			1
 		]
-	}
+	},
 	{
-		"question": "how important is a company with maternity leave policy?",
+		"question": "How important is a company with maternity leave policy?",
+		"variable": "maternity",
 		"choices": [
-			"very important",
-			"somewhat important",
-			"i don't care"
+			"Very Important",
+			"Somewhat Important",
+			"I Don't Care"
 		],
 		"values": [
 			3,
 			2,
 			1
 		]
-	}
+	},
 	{
-		"question": "how important is it to be surrounded by other female engineers at work?",
+		"question": "How important is it to be surrounded by other female engineers at work?",
+		"variable": "woman",
 		"choices": [
-			"extremely important",
-			"pretty important",
-			"i can work with anyone"
+			"Extremely Important",
+			"Pretty Important",
+			"I can work with anyone!"
 		],
 		"values": [
 			3,

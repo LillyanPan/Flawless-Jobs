@@ -1,0 +1,137 @@
+[
+	{
+		"company": "Airbnb",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 2,
+		"women": 2,
+		"score": 0.0
+	},
+	{
+		"company": "Apple",
+		"location": 3,
+		"size": 2,
+		"industry": 3,
+		"maternity": 3,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "athenahealth",
+		"location": 2,
+		"size": 1,
+		"industry": 1,
+		"maternity": 2,
+		"women": 2,
+		"score": 0.0
+	},
+	{
+		"company": "Dropbox",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 2,
+		"women": 2,
+		"score": 0.0
+	},
+	{
+		"company": "Etsy",
+		"location": 2,
+		"size": 1,
+		"industry": 4,
+		"maternity": 2,
+		"women": 2,
+		"score": 0.0
+	},
+	{
+		"company": "Facebook",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 2,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Google",
+		"location": 3,
+		"size": 2,
+		"industry": 4,
+		"maternity": 3,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Intel",
+		"location": 3,
+		"size": 2,
+		"industry": 3,
+		"maternity": 1,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Linkedin",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 2,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Microsoft",
+		"location": 3,
+		"size": 2,
+		"industry": 2,
+		"maternity": 3,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Netflix",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 3,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Pinterest",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 3,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Twitter",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 3,
+		"women": 3,
+		"score": 0.0
+	},
+	{
+		"company": "Yelp",
+		"location": 3,
+		"size": 1,
+		"industry": 4,
+		"maternity": 1,
+		"women": 1,
+		"score": 0.0
+	},
+	{
+		"company": "Oracle",
+		"location": 1,
+		"size": 2,
+		"industry": 2,
+		"maternity": 1,
+		"women": 3,
+		"score": 0.0
+	}
+]

@@ -148,10 +148,25 @@
 						.attr("type", "radio")
 						.attr("name", question["variable"])
 						.attr("value", value);
-					// Get value from input and convert to float
 					input.on("click", function(d, i) {
-						var val = this.value * 1.0;
-					})
+						// Get value from input and convert to float
+						var val = this.value*1.0;
+						for (var company in companies) {
+							var category = categories[num];
+
+							// if company's category value matches input 
+							if (company[category] == val)
+								company["score"] += 1;
+							else 
+								company["score"] -= 1;
+						}
+
+						if (num < questions.length-1)
+							changeQuestion(num+1);
+						else 
+							finishQuiz();
+					});
+
 					label.append("span").html(choice);
 				}
 		

@@ -6,8 +6,10 @@ body {
 	padding: 30px;
 }
 svg {
-	padding-bottom: 50px;
-	padding-top: 30px;
+/*	padding-bottom: 50px;
+	padding-top: 30px;*/
+	padding: 0px;
+	padding-top: 60px;
 }
 
 /*********************
@@ -24,6 +26,7 @@ svg {
 /*********************
 		GRAPHS
 *********************/
+
 
 /*********************
 		QUIZ
@@ -78,4 +81,8 @@ text:hover {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+
+#done p {
+	padding: 10px;
 }

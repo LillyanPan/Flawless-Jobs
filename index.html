@@ -56,6 +56,11 @@
 			// var fontScale = d3.scale.linear().domain([.1, 1]).range([12, 25]);
 			var minFont = 8;
 			var maxFont = 30;
+
+			var minSqr = 15;
+			var maxSqr = 50;
+			var orignalOpac, originalSize;
+
 			var companiesMap = [];
 			var cities = {};
 			var num = 0;
@@ -75,7 +80,7 @@
 			/* Return results in sorted order */
 			var finalResults = function() {
 				// returns json string [{key: "k1", value:"v1"}]
-				var results = d3.entries(cities);
+				var results = d3.entries(companies);
 
 				// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 				var compareNumbers = function(a,b) {
@@ -89,26 +94,32 @@
 
 			/* Reset Map */
 			var end = function() {
-				// var results = finalResults();
+				var results = finalResults();
+				console.log(results['value']);
 				updateMap();
 
-				for (var c in companies) {
-					var comp = companies[c];
-					console.log(comp);
-					var cScore = comp["score"];
-					if (cScore == maxScore) {
-						maxCompany = comp["company"];
-					}
-				}
-				console.log(maxCompany);
+				// for (var c in companies) {
+				// 	var comp = companies[c];
+				// 	console.log(comp);
+				// 	var cScore = comp["score"];
+				// 	if (cScore == maxScore) {
+				// 		maxCompany = comp["company"];
+				// 	}
+				// }
+				// console.log(maxCompany);
 				var res = d3.select(".jumbotron h1").html("");
 				res.append("div")
 					.attr("id", "question")
-				res.append("span").html(maxCompany);
+				res.append("span").html(results[0]['value']["company"]);
 				var empty = d3.select(".qz-text").html("");
 				empty.append("div")
 					.attr("id", "done")
-				empty.append("span").html("See above for your flawless job!");
+				empty.select("#done").html("<h3>Some other flawless places to consider: </h3>" +
+					"<p>" + results[1]['value']["company"] + "<br />" +
+					results[2]['value']["company"]+ "<br />" +
+					results[3]['value']["company"] + "</p>" + "<br />");
+				
+
 
 
 				// var job = companies[0]["value"];
@@ -128,7 +139,10 @@
 					return d["score"];
 				});
 
-				var sizeScale = d3.scale.linear().domain([minScore, maxScore]).range([minFont,maxFont]);
+				// var sizeScale = d3.scale.linear().domain([minScore, maxScore]).range([minFont,maxFont]);
+
+				var sizeScale = d3.scale.linear().domain([minScore, maxScore]).range([minSqr,maxSqr]);
+
     			var opacScale = d3.scale.linear().domain([minScore, maxScore]).range([0.2,1.0]);
     			for (var c in companiesMap) { // c = 0, 1, ...
 					var city = companiesMap[c];
@@ -139,17 +153,18 @@
 
 					var label = city['elems']["label"];
 					var circle = city["elems"]["circle"];
-
+					// console.log(size);
 					label
-					.transition(400)
-					.style("font-size", size+"px")
-					.attr("fill", function() {
+					.transition(1500)
+					.style("width", size+"px")
+					.style("height", size+"px")
+					.attr("class", function(d) {
 						return colorScale(cityAug["score"]);
 					})
 					.style("opacity", opacity);
 
 					circle
-					.transition(400)
+					.transition(1500)
 					.style("opacity", opacity);
 				}
 
@@ -186,19 +201,15 @@
 							// if company's category value matches input 
 							if (companies[company][category] == val) {
 								companies[company]["score"] += 1;
-								console.log(company["score"]);
 							}
 							else 
 								companies[company]["score"] -= 1;
 						}
-console.log(num);
-console.log(questions.length-1);
+
 						if (num < questions.length-1) {
 							changeQuestion(num+1);
-							console.log(num);
 						}
 						else {
-							console.log("END");
 							end();
 						}
 					});
@@ -209,7 +220,7 @@ console.log(questions.length-1);
 			} 
 
 
-			var width = 960, height = 550;
+			var width = 980, height = 560;
 			var projection = d3.geo.albersUsa();
 			var path = d3.geo.path().projection(projection);
 			var mapsvg = d3.select("#map").append("svg")
@@ -253,26 +264,48 @@ console.log(questions.length-1);
 					var coord = projection([city["longitude"], city["latitude"]]);
 					city["elems"] = {};
 
-					city['elems']["label"] = mapsvg.append("text")
-						.attr("x", coord[0])
-						.attr("y", coord[1] - 5)
-						.attr("class", "cityLabel")
-						.attr("text-anchor", "middle")
-        	    		.style("font-size", "8px")
-        	    		.attr("font-family", "PT Sans Narrow")
-        	    		.text(city["name"]);
+					// city['elems']["label"] = mapsvg.append("text")
+					// 	.attr("x", coord[0])
+					// 	.attr("y", coord[1] - 5)
+					// 	.attr("class", "cityLabel")
+					// 	.attr("text-anchor", "middle")
+     //    	    		.style("font-size", "8px")
+     //    	    		.attr("font-family", "PT Sans Narrow")
+     //    	    		.text(city["name"]);
 					city["elems"]["circle"] = mapsvg.append("circle")
 						.attr("cx", coord[0])
 						.attr("cy", coord[1])
 						.attr("r", 2)
 						.attr("class", "cityPoint");
-     	// 			city['elems']["label"] = mapsvg.append("svg:image")
-						// .attr("x", coord[0])
-						// .attr("y", coord[1] - 5)
-						// .attr("class", "city_img")
-						// .attr("width", sqr)
-						// .attr("width", sqr)
-      //   	    		.attr("xlink:href","assets/"+ city["name"] +".png")
+     				
+					var sqr = 30;
+     				city['elems']["label"] = mapsvg.append("svg:image")
+						.attr("x", coord[0])
+						.attr("y", coord[1] - 5)
+						.attr("class", "city_img")
+						.attr("width", sqr)
+						.attr("height", sqr)
+        	    		.attr("xlink:href","assets/"+ city["name"] +".png")
+        	    		.on('mouseover', function(d) {
+        	    			var imgSelect = d3.select(this);
+        	    			orignalOpac = imgSelect.style.opactiy;
+        	    			originalSize = imgSelect.attr("width");
+        	    			console.log(orignalOpac);
+        	    			console.log(originalSize);
+        	    			imgSelect
+        	    				.transition(1500)
+        	    				.attr("width", 60)
+								.attr("height", 60)
+								.style("opacity", '1.0')
+						})
+						.on('mouseout', function(d) {
+        	    			var imgSelect = d3.select(this);
+        	    			imgSelect
+        	    				.transition(1500)
+        	    				.attr("width", originalSize)
+								.attr("height", originalSize)
+								.style("opacity", orignalOpac)
+        	    		});
 					 
 				}
 

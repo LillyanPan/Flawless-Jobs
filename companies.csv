@@ -4,13 +4,13 @@ Apple,e=Apple,manufacturing,18,"17,165","59,869",29,18,"Cupertino, CA",37.322998
 athenahealth,e=AthenaHealth,b2b,12,75,473,15.86,,"Watertown, MA",42.37093,-71.182832,4668,Small
 Dropbox,e=Dropbox,consumer_internet,16,42,384,10.94,,"San Francisco, CA",37.274929,-122.219416,5000,Small
 Etsy,e=Etsy,consumer_internet,12,19,149,12.75,37,"Brooklyn, NY",40.678178,-73.944158,1000,Small
-Facebook,e=Facebook,consumer_internet,16,1579,5479,28.82,23,"Menlo Park, CA",37.45296,-122.181725,12691,Small
-Google,e=Google,consumer_internet,18,9038,35527,18,16,"Menlo Park, CA",37.85296,-122.381725,61814,Large
+Facebook,e=Facebook,consumer_internet,16,1579,5479,28.82,23,"Menlo Park, CA",38.172809,-121.405009,12691,Small
+Google,e=Google,consumer_internet,18,9038,35527,18,16,"Menlo Park, CA",38.586853,-122.930229,61814,Large
 Intel,e=Intel,manufacturing,8,"12,777","53,732",24,17,"Santa Clara, CA",37.354108,-121.955236,106700,Large
 LinkedIn,e=LinkedIn,consumer_internet,16,,,18,25,"Mountain View, CA",37.386052,-122.083851,9200,Small
 Microsoft,e=Microsoft,software,20,14819,60961,24,13,"Redmond, WA",47.673988,-122.121512,118584,Large
 Netflix,e=Netflix,consumer_internet,52,,,20,38.4,"Los Gatos, CA",37.235808,-121.962375,3500,Small
-Pinterest,e=Pinterest,consumer_internet,18,60,307,19.54,16,"San Francisco, CA",37.474929,-122.419416,500,Small
-Twitter,e=Twitter,consumer_internet,20,820,"2,910",24,22,"San Francisco, CA",37.674929,-122.619416,3638,Small
+Pinterest,e=Pinterest,consumer_internet,18,60,307,19.54,16,"San Francisco, CA",37.474929,-120.419416,500,Small
+Twitter,e=Twitter,consumer_internet,20,820,"2,910",24,22,"San Francisco, CA",37.182235,-120.759496,3638,Small
 Yelp,e=Yelp,consumer_internet,6,17,206,8.25,,"San Francisco, CA",37.874929,-122.819416,3850,Small
 Oracle,,software,9,,,29,,"Austin, TX",30.267153,-97.743061,43950,

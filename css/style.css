@@ -20,3 +20,24 @@ svg {
 /*********************
 		GRAPHS
 *********************/
+
+/*********************
+		QUIZ
+*********************/
+#question label.choice {
+	font-family: 'PT Sans Narrow';
+	display: block;
+	width: 100%;
+	border: none;
+	padding: 10px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+#question label.choice:hover {
+	background: #d3d3d3;
+}
+
+#question .choice input {
+	display: none;
+}

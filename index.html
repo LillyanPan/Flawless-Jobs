@@ -42,9 +42,8 @@
 			<div class="col-md-6">
 				<div id="map"></div>
 			</div>
-			<div id="quiz col-md-6">
+			<div id="quiz">
 				<div class="qs-text text-right"></div>
-			</div>
 			<div class="col-md-6 qz-text">
 				What company should you work for? Have fun finding your perfect company!
 				<a href="#" onclick="changeQuestion(0); return false;">Start the quiz!</a>
@@ -53,17 +52,19 @@
 		<script>
 			var cities, questions;
 			var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-			var vars = ["weather", "career", "women", "maternity", "size", "industry"];
+			var categories = ["location", "size", "industry", "maternity", "women"];
 			// var fontScale = d3.scale.linear().domain([.1, 1]).range([12, 25]);
 			var minFont = 5;
 			var maxFont = 25;
-			var companies = [];
+			var companiesMap = [];
 			var cities = {};
+			var num = 0;
+			var maxScore, minScore;
+			var maxCompany;
 
 
 			var resetQuiz = function() {
-				var weights = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-				updateMap(weights);
+				updateMap();
 				changeQuestion(0);
 
 				// Init labels and city points to black
@@ -87,29 +88,49 @@
 
 			/* Reset Map */
 			var end = function() {
-				var results = finalResults();
-				updateMap(weights);
+				// var results = finalResults();
+				updateMap();
 
-				var job = results[0]["value"];
-				var altJobs = [results[1]["value"], results[2]["value"], results[3]["value"]];
-				var cityKey = city["elems"]["label"].attr("id");
+				for (var c in companies) {
+					var comp = companies[c];
+					console.log(comp);
+					var cScore = comp["score"];
+					if (cScore == maxScore) {
+						maxCompany = comp["company"];
+					}
+				}
+				console.log(maxCompany);
+				var res = d3.select(".jumbotron h1").html("");
+				res.append("div")
+					.attr("id", "question")
+				res.append("span").html(maxCompany);
+
+
+				// var job = companies[0]["value"];
+				// var altJobs = [results[1]["value"], results[2]["value"], results[3]["value"]];
+				// var cityKey = city["elems"]["label"].attr("id");
 			}
 
 			/* Update Map based on Question Answer */ 
-			var updateMap = function (weights) {
-				var companyScore = function(x) {
-					return["value"]["score"];
-				};
-				var minScore = d3.min(d3.entries(cityScoresJson), companyScore);
-				var maxScore = d3.max(d3.entries(cityScoresJson), companyScore);
+			var updateMap = function () {
+				// var companyScore = function(x) {
+				// 	return["value"]["score"];
+				// };
+				minScore = d3.min(companies, function(d) {
+					return d["score"];
+				});
+				maxScore = d3.max(companies, function(d) {
+					return d["score"];
+				});
 
 				var sizeScale = d3.scale.linear().domain([minScore, maxScore]).range([minFont,maxFont]);
     			var opacScale = d3.scale.linear().domain([minScore, maxScore]).range([0.2,1.0]);
+    			for (var c in companiesMap) { // c = 0, 1, ...
+					var city = companiesMap[c];
+					var cityAug = companies[c];
 
-    			for (var c in companies) { // c = 0, 1, ...
-					var city = companies[c];
-					var size = sizeScale(city["score"]);
-					var opacity = opacScale(city["score"]);
+					var size = sizeScale(cityAug["score"]);
+					var opacity = opacScale(cityAug["score"]);
 
 					var label = city['elems']["label"];
 					var circle = city["elems"]["circle"];
@@ -126,9 +147,9 @@
 
 			}
 
-			/* Changing the Question */
+			/* Ctanging the Question */
 			var changeQuestion = function(num) {
-				// updateMap(weights);
+				updateMap();
 				var container = d3.select(".qz-text");
 				var question = questions[num];
 				var choices = question["choices"];
@@ -155,16 +176,23 @@
 							var category = categories[num];
 
 							// if company's category value matches input 
-							if (company[category] == val)
-								company["score"] += 1;
+							if (companies[company][category] == val) {
+								companies[company]["score"] += 1;
+								console.log(company["score"]);
+							}
 							else 
-								company["score"] -= 1;
+								companies[company]["score"] -= 1;
 						}
-
-						if (num < questions.length-1)
+console.log(num);
+console.log(questions.length-1);
+						if (num < questions.length-1) {
 							changeQuestion(num+1);
-						else 
-							finishQuiz();
+							console.log(num);
+						}
+						else {
+							console.log("END");
+							end();
+						}
 					});
 
 					label.append("span").html(choice);
@@ -210,13 +238,12 @@
 					company["latitude"] = line.lat;
 					company["size"] = line.size;
 					company["city"] = line.location;
-					companies.push(company);
+					companiesMap.push(company);
 				});
-				for (var c in companies) { // c = 0, 1, ...
-					var city = companies[c];
+				for (var c in companiesMap) { // c = 0, 1, ...
+					var city = companiesMap[c];
 					var coord = projection([city["longitude"], city["latitude"]]);
 					city["elems"] = {};
-					city["score"] = 0.0;
 
 					city['elems']["label"] = mapsvg.append("text")
 						.attr("x", coord[0])
@@ -247,7 +274,10 @@
 		    	questions = data;
 		    	console.log(data);
 			});
-			changeQuestion(2);
+			d3.json("companies.json", function(error, data) {
+		    	companies = data;
+		    	console.log(data);
+			});
 //cities = {city_key: {elems: {circle: svg c1, label: city label}, score: 0}}
 
 

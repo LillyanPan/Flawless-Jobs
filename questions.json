@@ -5,11 +5,9 @@
 		"choices": [
 			"West Coast",
 			"East Coast",
-			"Midwest",
-			"I Don't Care"
+			"Midwest"
 		],
 		"values": [
-			4,
 			3,
 			2,
 			1
@@ -23,8 +21,8 @@
 			"Small"
 		],
 		"values": [
-			4,
-			2
+			2,
+			1
 		]
 	},
 	{

@@ -1,4 +1,4 @@
-# tech-women
+# Flawless-Jobs
 
 > webapp to suggest best-fitting companies for individuals based on user input and data from company diversity reports 
 
